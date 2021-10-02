@@ -17,6 +17,7 @@
 /tmp/pids/*
 !/tmp/pids/
 !/tmp/pids/.keep
+db/schema.rb
 
 # Ignore uploaded files in development.
 /storage/*
