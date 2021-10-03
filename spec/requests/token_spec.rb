@@ -3,7 +3,7 @@ require 'rails_helper'
 RSpec.describe "Token", type: :request do
   let(:json) { JSON.parse(response.body) }
   
-  let(:criar_token) { Token.create({ email: email, token: token, status: status }).save }
+  let(:criar_token) { Token.create({ email: email, token: token, status: status }) }
   let(:token) { 'token' }
   let(:email) { 'email@husky.com'}
   let(:status) { 'aguardando_validacao' }

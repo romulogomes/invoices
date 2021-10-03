@@ -1,6 +1,5 @@
 import axios from 'axios';
-import { API_URL } from './ApiUrl'
-import { defaultConfig } from './ApiUrl';
+import { API_URL } from './Config'
 
 class TokenService {
 

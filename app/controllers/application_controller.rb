@@ -3,11 +3,12 @@ require 'jwt'
 class ApplicationController < ActionController::API
   SECRET_KEY = 'JIs$ecretK3y'.freeze
 
+  #FIXME Romulo move
   class Jwt
 
     def self.gerar(email)
       payload = { 
-        email: Base64.encode64("#{email}"), #FIXME ROmulo
+        email: email, #FIXME ROmulo
         date:  Time.now
       }
       JWT.encode payload, SECRET_KEY, 'HS256' 
@@ -18,6 +19,5 @@ class ApplicationController < ActionController::API
     end
     
   end
-
 
 end

@@ -40,7 +40,7 @@ class TokenController < ApplicationController
   end
 
   def salvar_token
-    Token.create({ email: email, token: token, status: 'aguardando_validacao' }).save
+    Token.create({ email: email, token: token, status: 'aguardando_validacao' })
   end
 
   def enviar_token_para_email

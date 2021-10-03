@@ -63,16 +63,16 @@ const InvoiceListResults = ({ invoices, ...rest }) => {
                     </Link>
                   </TableCell>
                   <TableCell>
-                    {invoice.phone}
+                    {invoice.number}
                   </TableCell>
                   <TableCell>
-                    {invoice.email}
+                    {invoice.company}
                   </TableCell>
                   <TableCell>
-                    {moment(invoice.createdAt).format('DD/MM/YYYY')}
+                    {moment(invoice.date).format('DD/MM/YYYY')}
                   </TableCell>
                   <TableCell>
-                    {`${invoice.address.city}, ${invoice.address.state}, ${invoice.address.country}`}
+                    {invoice.total}
                   </TableCell>
                 </TableRow>
               ))}

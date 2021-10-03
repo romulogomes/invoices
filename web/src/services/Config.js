@@ -4,7 +4,7 @@ export function defaultConfig() {
   return {
     headers: {
       "Content-Type": "application/json",
-      "X-Usuario-Id": sessionStorage.getItem('token'),
+      "token": sessionStorage.getItem('token'),
     },
   };
 }
