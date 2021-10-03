@@ -1,4 +1,4 @@
-import { Link as RouterLink, useNavigate } from 'react-router-dom';
+import { Link as RouterLink, useLocation, useNavigate, useParams } from 'react-router-dom';
 import { Helmet } from 'react-helmet';
 import {
   Box,
@@ -9,10 +9,34 @@ import {
   TextField,
   Typography
 } from '@material-ui/core';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import TokenService from 'src/services/TokenService';
 
 const Login = () => {
   const navigate = useNavigate();
+  const token = new URLSearchParams(useLocation().search).get("token");
+  
+  useEffect(() => {
+    if(token) {
+      // FIXME Romulo - loading
+      validateToken(token);
+    }
+  });
+
+  const validateToken = (token) => {
+    TokenService.validateToken({ token })
+      .then(response => {
+        if (response.data.mensagem == 'token_validado') {
+          sessionStorage.setItem('token', token);
+          navigate('/app/invoices', { replace: true });
+        } else {
+          alert("Token Inválido"); // FIXME Romulo token ja validado
+        }
+      }).catch(erro => {
+        alert("erro");
+        console.log(erro);
+      });
+  }
 
   const [values, setValues] = useState({
     email: "",
@@ -27,16 +51,36 @@ const Login = () => {
   };
 
   const generateToken = (e) => {
-    alert("Token Gerado " + values.email);
-    console.log(values.email);
+    TokenService.generateToken({ email: values.email })
+      .then(response => {
+        if (response.data.mensagem == 'email_enviado') {
+          alert(`Token Gerado, acesse ${values.email} e valide seu token`); // FIXME Romulo Translate
+        } else {
+          alert("Já existe um token para o email, acesse o seu mail e verifque seu token"); // FIXME Romulo - gerar Novo
+        }
+      }).catch(erro => {
+        alert("erro");
+        console.log(erro); //handleError
+      });
     e.preventDefault();
   }
 
   const login = (e) => {
-    navigate('/app/invoices', { replace: true });
+    TokenService.login({ token: values.token })
+      .then(response => {
+        if (response.data.mensagem == 'login_valido') {
+          sessionStorage.setItem('token', values.token);
+          navigate('/app/invoices', { replace: true });
+        } else {
+          alert("Token inválido");
+        }
+      }).catch(erro => {
+        alert("erro");
+        console.log(erro);
+      });
+    
     e.preventDefault();
   }
-
 
   return (
     <>
