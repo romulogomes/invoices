@@ -4,8 +4,23 @@ import { defaultConfig } from './Config';
 
 class InvoicesServices {
 
-  listar(dados) {
-    return axios.post(API_URL + 'invoices/listar', dados, defaultConfig());
+  listInvoices(data) {
+    return axios.post(API_URL + 'invoices/listar', data, defaultConfig());
+  }
+
+  loadDetails(id) {
+    return axios.post(API_URL + 'invoice/carregar', { id }, defaultConfig());
+  }
+
+  save(data) {
+    const data_transform = {
+      number: data["numberInvoice"],
+      date: data["date"],
+      company: data["company"],
+      bill_to: data["billingFor"],
+      total: data["total"],
+    }
+    return axios.post(API_URL + 'invoice/salvar', data_transform, defaultConfig());
   }
 
 }

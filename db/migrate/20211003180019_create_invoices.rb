@@ -12,5 +12,3 @@ class CreateInvoices < ActiveRecord::Migration[6.1]
     end
   end
 end
-
-#  Invoice.create(number: 1, date: '2020-09-09', company: 'Company', bill_to: 'Billto', total: 1, owner_email: 'a@a.com')

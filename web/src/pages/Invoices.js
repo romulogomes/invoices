@@ -12,8 +12,7 @@ const InvoicesList = () => {
   }, []);
   
   const listInvoices = () => {
-    console.log('listar invoices');
-    InvoicesService.listar()
+    InvoicesService.listInvoices()
       .then(response => {
         console.log(response.data);
         setInvoices(response.data);

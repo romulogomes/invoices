@@ -6,10 +6,26 @@ import {
 } from '@material-ui/core';
 import InvoiceDetailsCard from 'src/components/invoice/InvoiceDetailsCard';
 import { useParams } from 'react-router';
+import { useEffect, useState } from 'react';
+import InvoicesService from 'src/services/InvoicesService';
 
 const InvoiceDetails = () => {
+  const [invoice, setInvoice] = useState({});
   const { id } = useParams();
-  console.log(id);
+  useEffect(() => {
+    loadInvoiceDetails();
+  }, []);
+  
+  const loadInvoiceDetails = () => {
+    InvoicesService.loadDetails(id)
+      .then(response => {
+        console.log(response.data);
+        setInvoice(response.data);
+      }).catch(erro => {
+        alert("erro");
+        console.log(erro);
+      });
+  }
 
   return (
     <>
@@ -30,7 +46,7 @@ const InvoiceDetails = () => {
             md={12}
             xs={12}
             >
-            <InvoiceDetailsCard />
+            <InvoiceDetailsCard invoice={invoice} />
           </Grid>
         </Container>
       </Box>

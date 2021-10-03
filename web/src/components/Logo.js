@@ -1,4 +1,4 @@
-const Logo = (props) => (
+const Logo = () => (
   <h1>Husky Challenge</h1>
 );
 

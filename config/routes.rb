@@ -4,4 +4,6 @@ Rails.application.routes.draw do
   post 'validar_token', to: 'token#validar_token' # FIXME Romulo token/
 
   post 'invoices/listar', to: 'invoices#listar'
+  post 'invoice/carregar', to: 'invoices#carregar'
+  post 'invoice/salvar', to: 'invoices#salvar'
 end

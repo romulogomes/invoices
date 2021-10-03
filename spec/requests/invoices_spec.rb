@@ -9,100 +9,64 @@ RSpec.describe "/invoices", type: :request do
     company: 'COmpany',
     bill_to: 'Billto',
     total: 100,
-    owner_email: 'a@a.com'
+    owner_email: owner_email
   } }
-
-  let(:invalid_attributes) {
-    skip("Add a hash of attributes invalid for your model")
-  }
+  let(:owner_email) { 'a@a.com' }
 
   let(:valid_headers) { {
     token: ApplicationController::Jwt.gerar('a@a.com') #FIXME Romulo
   } }
 
-  describe "invoices/listar" do
+  let(:invoice) { Invoice.create! valid_attributes }
+
+  describe "listar invoices do usuário" do
     it do
-      Invoice.create! valid_attributes
-      post '/invoices/listar', headers: valid_headers, as: :json
+      invoice
+      post '/invoices/listar', headers: valid_headers, as: :json # get
       expect(response).to be_successful
       expect(json.count).to eq(1)
     end
   end
 
-  describe "GET /show" do
-    it "renders a successful response" do
-      invoice = Invoice.create! valid_attributes
-      get invoice_url(invoice), as: :json
-      expect(response).to be_successful
-    end
-  end
+  describe "carregar dados da invoice" do
 
-  describe "POST /create" do
-    context "with valid parameters" do
-      it "creates a new Invoice" do
+    context 'invoice do usuário' do
+
+      it do
+        post '/invoice/carregar', params: { id: invoice.id }, headers: valid_headers, as: :json
+        expect(json.then { 
+          {
+            number: _1['number'],
+            owner_email: _1['owner_email'],
+            company: _1['company'],
+          }
+        }).to eq({
+          number:  1,
+          owner_email: owner_email,
+          company: 'COmpany'
+        })
+      end
+
+    end
+
+    context 'invoice de outro usuário' do
+
+      let(:owner_email) { 'b@b.com' }
+
+      it do
         expect {
-          post invoices_url,
-               params: { invoice: valid_attributes }, headers: valid_headers, as: :json
-        }.to change(Invoice, :count).by(1)
+          post '/invoice/carregar', params: { id: invoice.id }, headers: valid_headers, as: :json
+        }.to raise_error(RuntimeError)
       end
 
-      it "renders a JSON response with the new invoice" do
-        post invoices_url,
-             params: { invoice: valid_attributes }, headers: valid_headers, as: :json
-        expect(response).to have_http_status(:created)
-        expect(response.content_type).to match(a_string_including("application/json"))
-      end
     end
 
-    context "with invalid parameters" do
-      it "does not create a new Invoice" do
-        expect {
-          post invoices_url,
-               params: { invoice: invalid_attributes }, as: :json
-        }.to change(Invoice, :count).by(0)
-      end
-
-      it "renders a JSON response with errors for the new invoice" do
-        post invoices_url,
-             params: { invoice: invalid_attributes }, headers: valid_headers, as: :json
-        expect(response).to have_http_status(:unprocessable_entity)
-        expect(response.content_type).to eq("application/json")
-      end
-    end
   end
 
-  describe "PATCH /update" do
-    context "with valid parameters" do
-      let(:new_attributes) {
-        skip("Add a hash of attributes valid for your model")
-      }
-
-      it "updates the requested invoice" do
-        invoice = Invoice.create! valid_attributes
-        patch invoice_url(invoice),
-              params: { invoice: new_attributes }, headers: valid_headers, as: :json
-        invoice.reload
-        skip("Add assertions for updated state")
-      end
-
-      it "renders a JSON response with the invoice" do
-        invoice = Invoice.create! valid_attributes
-        patch invoice_url(invoice),
-              params: { invoice: new_attributes }, headers: valid_headers, as: :json
-        expect(response).to have_http_status(:ok)
-        expect(response.content_type).to match(a_string_including("application/json"))
-      end
-    end
-
-    context "with invalid parameters" do
-      it "renders a JSON response with errors for the invoice" do
-        invoice = Invoice.create! valid_attributes
-        patch invoice_url(invoice),
-              params: { invoice: invalid_attributes }, headers: valid_headers, as: :json
-        expect(response).to have_http_status(:unprocessable_entity)
-        expect(response.content_type).to eq("application/json")
-      end
+  describe 'salvar invoice' do
+    it do
+      post '/invoice/salvar', params: valid_attributes, headers: valid_headers, as: :json
+      expect(json['id']).to be_a_kind_of(Integer) 
     end
   end
-
 end

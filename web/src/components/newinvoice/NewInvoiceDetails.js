@@ -9,8 +9,11 @@ import {
   Grid,
   TextField
 } from '@material-ui/core';
+import InvoicesService from 'src/services/InvoicesService';
+import { useNavigate } from 'react-router';
 
 const NewInvoiceDetails = (props) => {
+  const navigate = useNavigate();
   const [values, setValues] = useState({
     numberInvoice: '123',
     date: '2021-09-30',
@@ -28,8 +31,15 @@ const NewInvoiceDetails = (props) => {
   };
 
   const saveInvoice = (e) => {
-    console.log(values);
     e.preventDefault();
+    InvoicesService.save(values)
+      .then(response => {
+        const { id } = response.data;
+        navigate(`/app/invoice/details/${id}`, { replace: true });
+      }).catch(erro => {
+        alert("erro");
+        console.log(erro);
+      });
   }
 
   return (

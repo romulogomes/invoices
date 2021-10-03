@@ -3,16 +3,16 @@ import { API_URL } from './Config'
 
 class TokenService {
 
-  validateToken(dados) {
-    return axios.post(API_URL + 'validar_token', dados);
+  validateToken(data) {
+    return axios.post(API_URL + 'validar_token', data);
   }
 
-  generateToken(dados) {
-    return axios.post(API_URL + 'gerar_token', dados);
+  generateToken(data) {
+    return axios.post(API_URL + 'gerar_token', data);
   }
 
-  login(dados) {
-    return axios.post(API_URL + 'logar', dados);
+  login(data) {
+    return axios.post(API_URL + 'logar', data);
   }
 
 }
