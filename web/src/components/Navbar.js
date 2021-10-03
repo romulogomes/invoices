@@ -15,6 +15,11 @@ import Logo from './Logo';
 const Navbar = ({ onMobileNavOpen, ...rest }) => {
   const navigate = useNavigate();
 
+  const logout = () => {
+    sessionStorage.removeItem('token');
+    navigate('/login')
+  }
+
   return (
     <AppBar
       elevation={0}
@@ -24,7 +29,7 @@ const Navbar = ({ onMobileNavOpen, ...rest }) => {
         <Logo />
         <Box sx={{ flexGrow: 1 }} />
         <Hidden xlDown>
-          <IconButton color="inherit" size="large" onClick={() => navigate('/login')}>
+          <IconButton color="inherit" size="large" onClick={logout}>
             <InputIcon />
           </IconButton>
         </Hidden>
