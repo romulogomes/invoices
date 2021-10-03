@@ -5,13 +5,14 @@ import {
   Grid
 } from '@material-ui/core';
 import InvoiceDetailsCard from 'src/components/invoice/InvoiceDetailsCard';
-import { useParams } from 'react-router';
+import { useLocation, useParams } from 'react-router';
 import { useEffect, useState } from 'react';
 import InvoicesService from 'src/services/InvoicesService';
 
 const InvoiceDetails = () => {
   const [invoice, setInvoice] = useState({});
   const { id } = useParams();
+  const showAlert = new URLSearchParams(useLocation().search).get("showAlert") || false;
   useEffect(() => {
     loadInvoiceDetails();
   }, []);
@@ -46,7 +47,7 @@ const InvoiceDetails = () => {
             md={12}
             xs={12}
             >
-            <InvoiceDetailsCard invoice={invoice} />
+            <InvoiceDetailsCard invoice={invoice} showAlert={showAlert} />
           </Grid>
         </Container>
       </Box>

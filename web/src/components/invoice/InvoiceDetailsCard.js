@@ -13,7 +13,7 @@ import {
 
 
 const InvoiceDetailsCard = (props) => {
-  const { invoice } = props;
+  const { invoice, showAlert } = props;
 
   return (
     <Card {...props}>
@@ -84,7 +84,7 @@ const InvoiceDetailsCard = (props) => {
           fullWidth
           variant="text"
         >
-          Usuário Logado?
+          {showAlert ? 'Your invoice has been sent to the emails provided' : ''}
         </Button>
       </CardActions>
     </Card>

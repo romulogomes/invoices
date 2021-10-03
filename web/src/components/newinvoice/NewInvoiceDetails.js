@@ -35,7 +35,7 @@ const NewInvoiceDetails = (props) => {
     InvoicesService.save(values)
       .then(response => {
         const { id } = response.data;
-        navigate(`/app/invoice/details/${id}`, { replace: true });
+        navigate(`/app/invoice/details/${id}?showAlert=true`, { replace: true });
       }).catch(erro => {
         alert("erro");
         console.log(erro);
