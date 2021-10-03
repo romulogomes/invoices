@@ -8,6 +8,14 @@ class TokenController < ApplicationController
     render json: { mensagem: 'email_enviado' }
   end
 
+  def logar
+    if login_valido?
+      render json: { mensagem: 'login_valido' }
+    else
+      render json: { mensagem: 'login_invalido' }
+    end
+  end
+
   private 
 
   def email_ja_possui_token? 
@@ -23,11 +31,15 @@ class TokenController < ApplicationController
   end
 
   def salvar_token
-    Token.new({ email: email, token: token, status: 'aguardando_validacao' }).save
+    Token.create({ email: email, token: token, status: 'aguardando_validacao' }).save
   end
 
   def enviar_token_para_email
     TokenMailer.enviar_token(email: email, token: token).deliver
+  end
+
+  def login_valido?
+    Token.find_by(email: email, token: params[:token], status: 'validado')
   end
 
 end
