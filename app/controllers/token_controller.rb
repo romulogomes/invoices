@@ -3,9 +3,8 @@ class TokenController < ApplicationController
   def gerar_token
     render json: { mensagem: 'email_ja_possui_token' } and return if email_ja_possui_token?
 
-    salvar_token
-    enviar_token_para_email
-    render json: { mensagem: 'email_enviado' }
+    token = GerarToken.new(email: email).executar
+    render json: { mensagem: EnviarToken.new(token: token, email: email).executar }
   end
 
   def validar_token
@@ -33,18 +32,6 @@ class TokenController < ApplicationController
 
   def email
     params[:email]
-  end
-
-  def token
-    @token ||= Jwt.gerar(email)
-  end
-
-  def salvar_token
-    Token.create({ email: email, token: token, status: 'aguardando_validacao' })
-  end
-
-  def enviar_token_para_email
-    TokenMailer.enviar_token(email: email, token: token).deliver_now
   end
 
   def token_a_ser_validado
