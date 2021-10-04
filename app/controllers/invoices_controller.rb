@@ -11,7 +11,7 @@ class InvoicesController < ApplicationController
   end
 
   def salvar
-    invoice_id = SalvarInvoice.new(
+    invoice = SalvarInvoice.new(
       number: params[:number],
       date: params[:date],
       company: params[:company],
@@ -19,8 +19,8 @@ class InvoicesController < ApplicationController
       total: params[:total],
       owner_email: email_owner_token
     ).executar
-    EnviarInvoicePorEmail.new(invoice_id: invoice_id, emails: params[:emails]).executar if params[:emails]
-    render json: { id: invoice_id }
+    EnviarInvoicePorEmail.new(invoice_id: invoice.id, emails: params[:emails]).executar if params[:emails]
+    render json: { id: invoice.id }
   end
 
   def enviar

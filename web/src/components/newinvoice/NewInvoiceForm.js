@@ -38,7 +38,6 @@ const NewInvoiceForm = (props) => {
     const re = /\S+@\S+\.\S+/;
     if (re.test(email)){
       setEmails([...emails, email])
-      console.log(emails);
     } else {
       alert("invalid email, fix");
     }

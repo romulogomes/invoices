@@ -15,7 +15,6 @@ const InvoicesList = () => {
   const listInvoices = () => {
     InvoicesService.listInvoices()
       .then(response => {
-        console.log(response.data);
         setInvoices(response.data);
       }).catch(erro => {
         handleErrorApi(erro);
