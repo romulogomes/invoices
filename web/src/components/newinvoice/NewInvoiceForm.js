@@ -13,7 +13,7 @@ import InvoicesService from 'src/services/InvoicesService';
 import { useNavigate } from 'react-router';
 import MultipleValueTextInput from 'react-multivalue-text-input';
 
-const NewInvoiceDetails = (props) => {
+const NewInvoiceForm = (props) => {
   const navigate = useNavigate();
   const [emails, setEmails] = useState([]);
   const [values, setValues] = useState({
@@ -187,4 +187,4 @@ const NewInvoiceDetails = (props) => {
   );
 };
 
-export default NewInvoiceDetails;
+export default NewInvoiceForm;

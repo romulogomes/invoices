@@ -9,6 +9,7 @@ import InvoiceDetailsCard from 'src/components/invoice/InvoiceDetailsCard';
 import { useLocation, useParams } from 'react-router';
 import { useEffect, useState } from 'react';
 import InvoicesService from 'src/services/InvoicesService';
+import InvoiceDetailsForm from 'src/components/invoice/InvoiceDetailsForm';
 
 const InvoiceDetails = () => {
   const [invoice, setInvoice] = useState({});
@@ -49,7 +50,7 @@ const InvoiceDetails = () => {
             >
             {showAlert && <Alert severity="success">Your invoice has been sent to the emails provided</Alert> }  
             <InvoiceDetailsCard invoice={invoice} />
-            
+            <InvoiceDetailsForm id={id} />
           </Grid>
         </Container>
       </Box>

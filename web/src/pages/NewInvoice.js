@@ -4,7 +4,7 @@ import {
   Container,
   Grid
 } from '@material-ui/core';
-import NewInvoiceDetails from '../components/newinvoice/NewInvoiceDetails';
+import NewInvoiceForm from '../components/newinvoice/NewInvoiceForm';
 
 const NewInvoice = () => (
   <>
@@ -25,7 +25,7 @@ const NewInvoice = () => (
           md={12}
           xs={12}
           >
-          <NewInvoiceDetails />
+          <NewInvoiceForm />
         </Grid>
       </Container>
     </Box>
