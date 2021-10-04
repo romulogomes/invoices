@@ -5,6 +5,8 @@ class InvoicesController < ApplicationController
   end
 
   def carregar
+    return requisicao_invalida unless params[:id]
+
     render json: CarregarInvoice.new(invoice_id: params[:id]).executar
   end
 
@@ -22,12 +24,10 @@ class InvoicesController < ApplicationController
   end
 
   def enviar
-    if params[:emails] && params[:id]
-      EnviarInvoicePorEmail.new(invoice_id: params[:id], emails: params[:emails]).executar
-      render json: { mensagem: 'email_enviado' }
-    else
-      render json: { mensagem: 'requisicao_invalida' }, status: :unprocessable_entity
-    end
+    return requisicao_invalida unless params[:emails] && params[:id]
+
+    EnviarInvoicePorEmail.new(invoice_id: params[:id], emails: params[:emails]).executar
+    render json: { mensagem: 'email_enviado' }
   end
 
   private
