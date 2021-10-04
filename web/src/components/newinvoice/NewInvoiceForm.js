@@ -18,12 +18,11 @@ const NewInvoiceForm = (props) => {
   const navigate = useNavigate();
   const [emails, setEmails] = useState([]);
   const [values, setValues] = useState({
-    numberInvoice: '123',
-    date: '2021-09-30',
-    emails: 'demo@devias.io',
-    company: 'Husky',
-    billingFor: 'Alabama',
-    total: 100,
+    numberInvoice: '',
+    date: '2021-10-05',
+    company: '',
+    billingFor: '',
+    total: '',
     emails: []
   });
 
@@ -132,6 +131,7 @@ const NewInvoiceForm = (props) => {
                 onChange={handleChange}
                 value={values.company}
                 variant="outlined"
+                required
               />
             </Grid>
             <Grid
@@ -147,6 +147,7 @@ const NewInvoiceForm = (props) => {
                 onChange={handleChange}
                 value={values.billingFor}
                 variant="outlined"
+                required
               />
             </Grid>
             <Grid

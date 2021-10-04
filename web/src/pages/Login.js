@@ -1,16 +1,17 @@
 import { Link as RouterLink, useLocation, useNavigate, useParams } from 'react-router-dom';
 import { Helmet } from 'react-helmet';
 import {
+  Alert,
   Box,
   Button,
   Container,
   Grid,
-  Link,
   TextField,
   Typography
 } from '@material-ui/core';
 import { useEffect, useState } from 'react';
 import TokenService from 'src/services/TokenService';
+import { handleErrorApi } from 'src/services/Config';
 
 const Login = () => {
   const navigate = useNavigate();
@@ -18,7 +19,6 @@ const Login = () => {
   
   useEffect(() => {
     if(token) {
-      // FIXME Romulo - loading
       validateToken(token);
     }
   });
@@ -40,6 +40,8 @@ const Login = () => {
   const [values, setValues] = useState({
     email: "",
     token: "",
+    message: "",
+    showAlert: false,
   });
 
   const handleChange = (event) => {
@@ -53,9 +55,16 @@ const Login = () => {
     TokenService.generateToken({ email: values.email })
       .then(response => {
         if (response.data.mensagem == 'email_enviado') {
-          alert(`Token Gerado, acesse ${values.email} e valide seu token`); // FIXME Romulo Translate
+          setValues({
+            ...values,
+            showAlert: true, message: `Token Gerado, acesse ${values.email} e valide seu token`
+          });
         } else {
-          alert("Já existe um token para o email, acesse o seu mail e verifque seu token"); // FIXME Romulo - gerar Novo
+          // FIXME Romulo - gerar Novo
+          setValues({
+            ...values,
+            showAlert: true, message: `Já existe um token para o email, acesse o seu mail e verifque seu token`
+          });
         }
       }).catch(erro => {
         handleErrorApi(erro);
@@ -94,6 +103,7 @@ const Login = () => {
         }}
       >
         <Container maxWidth="sm">
+          {values.showAlert && <Alert severity="success">{values.message}</Alert>}
           <form onSubmit={generateToken}>
             <Box sx={{ mb: 3 }}>
               <Typography

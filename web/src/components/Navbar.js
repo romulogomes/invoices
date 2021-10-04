@@ -37,6 +37,9 @@ const Navbar = ({ onMobileNavOpen, ...rest }) => {
           <IconButton color="inherit" onClick={onMobileNavOpen} size="large">
             <MenuIcon />
           </IconButton>
+          <IconButton color="inherit" size="large" onClick={logout}>
+            <InputIcon />
+          </IconButton>
         </Hidden>
       </Toolbar>
     </AppBar>
