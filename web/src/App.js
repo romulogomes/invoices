@@ -6,7 +6,8 @@ import theme from './theme';
 import routes from './routes';
 
 const App = () => {
-  const content = useRoutes(routes);
+  let isLoggedIn = !!sessionStorage.getItem('token');
+  const content = useRoutes(routes(isLoggedIn));
 
   return (
     <StyledEngineProvider injectFirst>
