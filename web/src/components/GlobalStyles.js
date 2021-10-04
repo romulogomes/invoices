@@ -25,6 +25,18 @@ const useStyles = makeStyles(() => createStyles({
     '#root': {
       height: '100%',
       width: '100%'
+    },
+    '.loading-indicator:after': {
+        content: "'Loading...'",
+        position: 'fixed',
+        width: '100%',
+        top: '50%',
+        left: '0',
+        zIndex: '1001',
+        color: '#172b4d',
+        textAlign: 'center',
+        fontWeight: 'bold',
+        fontSize: '1.5rem'
     }
   }
 }));
