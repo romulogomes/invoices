@@ -77,13 +77,6 @@ RSpec.describe "Token", type: :request do
 
     context 'login inválido' do
  
-      context 'sem token' do
-        it do
-          post '/logar', params: { }
-          expect(json).to eq('mensagem' => 'login_invalido')
-        end
-      end
-
       context 'token invalidado' do
         let(:status) { 'invalidado' }
 

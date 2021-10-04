@@ -8,21 +8,21 @@ class TokenController < ApplicationController
   end
 
   def validar_token
+    return requisicao_invalida unless params[:token] 
+
     render json: { mensagem: ValidarToken.new(token: params[:token]).executar }
   end
 
   def logar
-    render json: { mensagem: token_validado? ? 'login_valido' : 'login_invalido' }
+    return requisicao_invalida unless params[:token]
+
+    render json: { mensagem: Logar.new(token: params[:token]).executar  }
   end
 
   private
 
   def email_ja_possui_token?
     Token.find_by(email: params[:email])
-  end
-
-  def token_validado?
-    Token.find_by(token: params[:token], status: 'validado')
-  end
+  end  
 
 end
