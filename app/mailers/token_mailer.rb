@@ -13,13 +13,15 @@ class TokenMailer < ApplicationMailer
   private 
 
   def link_de_ativacao(token)
-    "#{base}?token=#{token}"
+    "#{base_url}#{path}?token=#{token}"
   end
 
-  def base
-    return 'https://invoices-six.vercel.app/' if Rails.env.production?
+  def path
+    'login/'
+  end
 
-    'http://localhost:3001/login'
+  def base_url
+    BASE_URL
   end
 
 end

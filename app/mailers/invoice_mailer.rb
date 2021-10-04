@@ -13,17 +13,15 @@ class InvoiceMailer < ApplicationMailer
   private 
 
   def link_da_invoice(id)
-    "#{base}#{path}#{id}"
+    "#{base_url}#{path}#{id}"
   end
 
   def path
     'app/invoice/details/'
   end
 
-  def base
-    return 'https://invoices-six.vercel.app/' if Rails.env.production?
-    
-    'http://localhost:3001/'
+  def base_url
+    BASE_URL
   end
 
 end

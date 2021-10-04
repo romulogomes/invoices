@@ -1,0 +1,1 @@
+BASE_URL = (Rails.env.production? ? 'https://invoices-six.vercel.app/' : 'http://localhost:3001/').freeze
