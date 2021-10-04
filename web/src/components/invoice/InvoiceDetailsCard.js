@@ -1,16 +1,12 @@
 import moment from 'moment';
 import {
   Box,
-  Button,
   Card,
-  CardActions,
   CardContent,
   Divider,
   Grid,
   Typography
 } from '@material-ui/core';
-
-
 
 const InvoiceDetailsCard = (props) => {
   const { invoice } = props;
@@ -54,7 +50,7 @@ const InvoiceDetailsCard = (props) => {
               <h3>Date</h3>
             </Grid>
             <Grid item xs={6}>
-              <h3>{moment(invoice.date).format('DD/MM/YYYY')}</h3>
+              <h3>{invoice.date && moment(invoice.date).format('DD/MM/YYYY') }</h3>
             </Grid>
             <Grid item xs={6}>
               <h3>Bill to</h3>
