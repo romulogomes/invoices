@@ -13,7 +13,6 @@ class TokenMailer < ApplicationMailer
   private 
 
   def link_de_ativacao(token)
-    p "#{base}?token=#{token}" #FIXME Romulo
     "#{base}?token=#{token}"
   end
 

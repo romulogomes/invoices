@@ -14,7 +14,7 @@ RSpec.describe '/invoices', type: :request do
   let(:owner_email) { 'a@a.com' }
 
   let(:valid_headers) { {
-    token: ApplicationController::Jwt.gerar('a@a.com') #FIXME Romulo
+    token: Jwt.gerar(owner_email)
   } }
 
   let(:invoice) { Invoice.create! valid_attributes }
