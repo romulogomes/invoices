@@ -1,4 +1,4 @@
-import axios, { Axios } from "axios";
+import axios from "axios";
 
 export const API_URL = 'http://localhost:3000/';
 
@@ -10,6 +10,12 @@ export function defaultConfig() {
     },
   };
 }
+
+export function handleErrorApi(error) {
+  alert("Erro");
+  console.log(error);
+}
+
 
 axios.interceptors.request.use(function (config) {
   document.body.classList.add('loading-indicator');

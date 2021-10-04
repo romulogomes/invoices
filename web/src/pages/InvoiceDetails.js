@@ -11,6 +11,7 @@ import { useLocation, useParams } from 'react-router';
 import { useEffect, useState } from 'react';
 import InvoicesService from 'src/services/InvoicesService';
 import InvoiceDetailsForm from 'src/components/invoice/InvoiceDetailsForm';
+import { handleErrorApi } from 'src/services/Config';
 
 const InvoiceDetails = (props) => {
   const [invoice, setInvoice] = useState({});
@@ -26,8 +27,7 @@ const InvoiceDetails = (props) => {
       .then(response => {
         setInvoice(response.data);
       }).catch(erro => {
-        alert("erro");
-        console.log(erro);
+        handleErrorApi(erro);
       });
   }
 

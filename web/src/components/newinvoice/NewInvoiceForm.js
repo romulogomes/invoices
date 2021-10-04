@@ -12,6 +12,7 @@ import {
 import InvoicesService from 'src/services/InvoicesService';
 import { useNavigate } from 'react-router';
 import MultipleValueTextInput from 'react-multivalue-text-input';
+import { handleErrorApi } from 'src/services/Config';
 
 const NewInvoiceForm = (props) => {
   const navigate = useNavigate();
@@ -50,8 +51,7 @@ const NewInvoiceForm = (props) => {
         const { id } = response.data;
         navigate(`/app/invoice/details/${id}?showAlert=true`, { replace: true });
       }).catch(erro => {
-        alert("erro");
-        console.log(erro);
+        handleErrorApi(erro);
       });
   }
 

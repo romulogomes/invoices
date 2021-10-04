@@ -10,6 +10,7 @@ import {
 } from '@material-ui/core';
 import { useState } from 'react';
 import MultipleValueTextInput from 'react-multivalue-text-input';
+import { handleErrorApi } from 'src/services/Config';
 import InvoicesService from 'src/services/InvoicesService';
 
 
@@ -29,8 +30,7 @@ const InvoiceDetialsForm = (props) => {
       .then(response => {
         alert("invoices sent");
       }).catch(erro => {
-        alert("erro");
-        console.log(erro);
+        handleErrorApi(erro);
       });
     console.log(props.id, emails)
   }

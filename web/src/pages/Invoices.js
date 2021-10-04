@@ -4,6 +4,7 @@ import InvoiceListResults from '../components/invoice/InvoiceListResults';
 import InvoiceListToolbar from '../components/invoice/InvoiceListToolbar';
 import InvoicesService from 'src/services/InvoicesService';
 import { useEffect, useState } from 'react';
+import { handleErrorApi } from 'src/services/Config';
 
 const InvoicesList = () => {
   const [invoices, setInvoices] = useState([]);
@@ -17,8 +18,7 @@ const InvoicesList = () => {
         console.log(response.data);
         setInvoices(response.data);
       }).catch(erro => {
-        alert("erro");
-        console.log(erro);
+        handleErrorApi(erro);
       });
   }
 

@@ -33,8 +33,7 @@ const Login = () => {
           alert("Token Inválido"); // FIXME Romulo token ja validado
         }
       }).catch(erro => {
-        alert("erro");
-        console.log(erro);
+        handleErrorApi(erro);
       });
   }
 
@@ -59,8 +58,7 @@ const Login = () => {
           alert("Já existe um token para o email, acesse o seu mail e verifque seu token"); // FIXME Romulo - gerar Novo
         }
       }).catch(erro => {
-        alert("erro");
-        console.log(erro); //handleError
+        handleErrorApi(erro);
       });
     e.preventDefault();
   }
@@ -75,8 +73,7 @@ const Login = () => {
           alert("Token inválido");
         }
       }).catch(erro => {
-        alert("erro");
-        console.log(erro);
+        handleErrorApi(erro);
       });
     
     e.preventDefault();
