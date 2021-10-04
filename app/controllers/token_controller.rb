@@ -8,7 +8,7 @@ class TokenController < ApplicationController
   end
 
   def validar_token
-    return requisicao_invalida unless params[:token] 
+    return requisicao_invalida unless params[:token]
 
     render json: { mensagem: ValidarToken.new(token: params[:token]).executar }
   end
@@ -22,7 +22,7 @@ class TokenController < ApplicationController
   private
 
   def email_ja_possui_token?
-    Token.find_by(email: params[:email])
-  end  
+    BuscarTokenPorEmail.new(email: params[:email]).executar
+  end
 
 end
