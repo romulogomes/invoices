@@ -13,7 +13,6 @@ class InvoiceMailer < ApplicationMailer
   private 
 
   def link_da_invoice(id)
-    p "#{base}#{path}#{id}" #FIXME Romulo
     "#{base}#{path}#{id}"
   end
 

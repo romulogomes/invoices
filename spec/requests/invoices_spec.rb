@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe "/invoices", type: :request do
+RSpec.describe '/invoices', type: :request do
   let(:json) { JSON.parse(response.body) }
 
   let(:valid_attributes) { {
@@ -19,7 +19,12 @@ RSpec.describe "/invoices", type: :request do
 
   let(:invoice) { Invoice.create! valid_attributes }
 
-  describe "listar invoices do usuário" do
+  before do
+    Struct.new('Document', :id, :status)
+    allow(Pdfmonkey::Document).to receive(:generate!).and_return(Struct::Document.new('1', 'success'))
+  end
+
+  describe 'listar invoices do usuário' do
     it do
       invoice
       post '/invoices/listar', headers: valid_headers, as: :json # get
@@ -28,8 +33,7 @@ RSpec.describe "/invoices", type: :request do
     end
   end
 
-  describe "carregar dados da invoice" do
-
+  describe 'carregar dados da invoice' do
     it do
       post '/invoice/carregar', params: { id: invoice.id }, headers: valid_headers, as: :json
       expect(json.then { 
@@ -41,7 +45,7 @@ RSpec.describe "/invoices", type: :request do
       }).to eq({
         number:  1,
         owner_email: owner_email,
-        company: 'COmpany'
+        company: 'COmpany',
       })
     end
 
