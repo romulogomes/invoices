@@ -38,25 +38,29 @@ const DashboardLayoutContent = styled('div')({
   overflow: 'auto'
 });
 
-const DashboardLayout = () => {
+const DashboardLayout = (props) => {
   const [isMobileNavOpen, setMobileNavOpen] = useState(false);
-
-  return (
-    <DashboardLayoutRoot>
-      <Navbar onMobileNavOpen={() => setMobileNavOpen(true)} />
-      <Sidebar
-        onMobileClose={() => setMobileNavOpen(false)}
-        openMobile={isMobileNavOpen}
-      />
-      <DashboardLayoutWrapper>
-        <DashboardLayoutContainer>
-          <DashboardLayoutContent>
-            <Outlet />
-          </DashboardLayoutContent>
-        </DashboardLayoutContainer>
-      </DashboardLayoutWrapper>
-    </DashboardLayoutRoot>
-  );
+  
+  if (!props.isLoggedIn){
+    return (<Outlet />)
+  } else {
+    return ( 
+      <DashboardLayoutRoot>
+        <Navbar onMobileNavOpen={() => setMobileNavOpen(true)} />
+        <Sidebar
+          onMobileClose={() => setMobileNavOpen(false)}
+          openMobile={isMobileNavOpen}
+        />
+        <DashboardLayoutWrapper>
+          <DashboardLayoutContainer>
+            <DashboardLayoutContent>
+              <Outlet />
+            </DashboardLayoutContent>
+          </DashboardLayoutContainer>
+        </DashboardLayoutWrapper>
+      </DashboardLayoutRoot>
+    );
+  }
 };
 
 export default DashboardLayout;

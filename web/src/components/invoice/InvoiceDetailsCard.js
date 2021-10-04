@@ -13,8 +13,8 @@ import {
 
 
 const InvoiceDetailsCard = (props) => {
-  const { invoice, showAlert } = props;
-
+  const { invoice } = props;
+  
   return (
     <Card {...props}>
       <CardContent>
@@ -72,15 +72,7 @@ const InvoiceDetailsCard = (props) => {
         </Box>
       </CardContent>
       <Divider />
-      <CardActions>
-        <Button
-          color="primary"
-          fullWidth
-          variant="text"
-        >
-          {showAlert ? 'Your invoice has been sent to the emails provided' : ''}
-        </Button>
-      </CardActions>
+      
     </Card>
   );
 }

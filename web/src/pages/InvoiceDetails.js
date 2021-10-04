@@ -1,5 +1,6 @@
 import { Helmet } from 'react-helmet';
 import {
+  Alert,
   Box,
   Container,
   Grid
@@ -20,7 +21,6 @@ const InvoiceDetails = () => {
   const loadInvoiceDetails = () => {
     InvoicesService.loadDetails(id)
       .then(response => {
-        console.log(response.data);
         setInvoice(response.data);
       }).catch(erro => {
         alert("erro");
@@ -47,7 +47,9 @@ const InvoiceDetails = () => {
             md={12}
             xs={12}
             >
-            <InvoiceDetailsCard invoice={invoice} showAlert={showAlert} />
+            {showAlert && <Alert severity="success">Your invoice has been sent to the emails provided</Alert> }  
+            <InvoiceDetailsCard invoice={invoice} />
+            
           </Grid>
         </Container>
       </Box>
