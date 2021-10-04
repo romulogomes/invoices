@@ -21,6 +21,8 @@ class InvoiceMailer < ApplicationMailer
   end
 
   def base
+    return 'https://invoices-six.vercel.app/' if Rails.env.production?
+    
     'http://localhost:3001/'
   end
 
