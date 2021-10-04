@@ -1,24 +1,32 @@
-# README
+# Husky Challenge
+######  Sistema de geração de invoices.
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+#### [Demo link](https://invoices-six.vercel.app/login)
 
-Things you may want to cover:
 
-* Ruby version
+## Features
+- Login via token de acesso
+- Criação de Invoices
+- Envio de Invoices por emails
+- Visualização com opção de download da invoice (PDF)
 
-* System dependencies
+Foi priorizado o "caminho feliz" da aplicação, fazendo assim que o usuário consiga passar pelos requisitos e sair do outro lado.
 
-* Configuration
+## Tecnologias utilizadas
+- Ruby on Rails
+- Rspec
+- Postgres
+- React
+- Material Ui (https://mui.com/pt/)
+- Yarn
+- Vercel
+- Heroku
+- PDFMonkey (https://www.pdfmonkey.io/)
+- Bibliotecas js: axios, react-router-dom, moment...
+- Gems: Rake-Cors, PdfMonkey, JWT, Database cleaner..
+ 
+### Front-end 
+O projeto front-end está na pasta web.
+Para rodar, bastar instalar as dependências (yarn install ou npm install)
+e startar o servidor (yarn run start)
 
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
