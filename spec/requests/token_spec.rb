@@ -12,10 +12,9 @@ RSpec.describe "Token", type: :request do
     
     context 'sem token gerado previamente' do
       it do
-        post '/gerar_token', params: { email: email }
-        
+
+        expect { post '/gerar_token', params: { email: email } }.to change { ActionMailer::Base.deliveries.count }.by(1)
         expect(json).to eq('mensagem' => 'email_enviado')
-        expect(response).to have_http_status(200)
       end
 
     end
@@ -27,7 +26,6 @@ RSpec.describe "Token", type: :request do
 
       it do
         post '/gerar_token', params: { email: email }
-  
         expect(json).to eq('mensagem' => 'email_ja_possui_token')
         expect(response).to have_http_status(200)
       end

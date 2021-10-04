@@ -30,35 +30,19 @@ RSpec.describe "/invoices", type: :request do
 
   describe "carregar dados da invoice" do
 
-    context 'invoice do usuário' do
-
-      it do
-        post '/invoice/carregar', params: { id: invoice.id }, headers: valid_headers, as: :json
-        expect(json.then { 
-          {
-            number: _1['number'],
-            owner_email: _1['owner_email'],
-            company: _1['company'],
-          }
-        }).to eq({
-          number:  1,
-          owner_email: owner_email,
-          company: 'COmpany'
-        })
-      end
-
-    end
-
-    context 'invoice de outro usuário' do
-
-      let(:owner_email) { 'b@b.com' }
-
-      it do
-        expect {
-          post '/invoice/carregar', params: { id: invoice.id }, headers: valid_headers, as: :json
-        }.to raise_error(RuntimeError)
-      end
-
+    it do
+      post '/invoice/carregar', params: { id: invoice.id }, headers: valid_headers, as: :json
+      expect(json.then { 
+        {
+          number: _1['number'],
+          owner_email: _1['owner_email'],
+          company: _1['company'],
+        }
+      }).to eq({
+        number:  1,
+        owner_email: owner_email,
+        company: 'COmpany'
+      })
     end
 
   end
