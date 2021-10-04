@@ -9,8 +9,8 @@ class InvoicesController < ApplicationController
   def carregar
     invoice = Invoice.find(params[:id])
     # raise unless email_token == invoice.owner_email
-
-    render json: invoice
+    pdf = Pdfmonkey::Document.fetch(invoice.pdfmonkey_id)
+    render json: invoice.as_json.merge(pdf_link: pdf.download_url)
   end
 
   def salvar
@@ -52,4 +52,18 @@ class InvoicesController < ApplicationController
     end
   end
 
+  #Delete
+  def gerar_pdf(invoice)
+    template_id = 'C5DE6D11-280A-443D-BBE0-93CFF095BCCE'
+    data = { 
+      invoice_number: invoice.number,
+      invoice_date: invoice.date,
+      bill_to: invoice.bill_to,
+      company: invoice.company,
+      total: invoice.total
+    }
+    
+    document = Pdfmonkey::Document.generate!(template_id, data)
+    document.download_url if document.status == 'success'
+  end
 end
