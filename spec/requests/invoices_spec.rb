@@ -64,9 +64,11 @@ RSpec.describe "/invoices", type: :request do
   end
 
   describe 'salvar invoice' do
-    it do
-      post '/invoice/salvar', params: valid_attributes, headers: valid_headers, as: :json
-      expect(json['id']).to be_a_kind_of(Integer) 
+    it 'deve salvar invoice, enviar os emails e retornar o id' do
+      expect {
+        post '/invoice/salvar', params: valid_attributes.merge(emails: ['email@example.com', 'another@example.com']), headers: valid_headers
+      }.to change { ActionMailer::Base.deliveries.count }.by(2)
+      expect(json['id']).to be_a_kind_of(Integer)
     end
   end
 end

@@ -44,7 +44,7 @@ class TokenController < ApplicationController
   end
 
   def enviar_token_para_email
-    TokenMailer.enviar_token(email: email, token: token).deliver
+    TokenMailer.enviar_token(email: email, token: token).deliver_now
   end
 
   def token_a_ser_validado

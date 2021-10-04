@@ -11,16 +11,19 @@ import {
 } from '@material-ui/core';
 import InvoicesService from 'src/services/InvoicesService';
 import { useNavigate } from 'react-router';
+import MultipleValueTextInput from 'react-multivalue-text-input';
 
 const NewInvoiceDetails = (props) => {
   const navigate = useNavigate();
+  const [emails, setEmails] = useState([]);
   const [values, setValues] = useState({
     numberInvoice: '123',
     date: '2021-09-30',
     emails: 'demo@devias.io',
     company: 'Husky',
     billingFor: 'Alabama',
-    total: 100
+    total: 100,
+    emails: []
   });
 
   const handleChange = (event) => {
@@ -30,9 +33,19 @@ const NewInvoiceDetails = (props) => {
     });
   };
 
+  const handleNewEmail = (email) => {
+    const re = /\S+@\S+\.\S+/;
+    if (re.test(email)){
+      setEmails([...emails, email])
+      console.log(emails);
+    } else {
+      alert("invalid email, fix");
+    }
+  }
+
   const saveInvoice = (e) => {
     e.preventDefault();
-    InvoicesService.save(values)
+    InvoicesService.save(values, emails)
       .then(response => {
         const { id } = response.data;
         navigate(`/app/invoice/details/${id}?showAlert=true`, { replace: true });
@@ -98,14 +111,13 @@ const NewInvoiceDetails = (props) => {
             >
               <TextField
                 fullWidth
-                label="Emails"
-                helperText="Separate emails with a comma"
-                name="emails"
+                label="Total"
+                name="total"
+                type="number"
                 onChange={handleChange}
                 required
-                value={values.emails}
-                type="email"
-                multiple
+                value={values.total}
+                variant="outlined"
               />
             </Grid>
             <Grid
@@ -143,16 +155,14 @@ const NewInvoiceDetails = (props) => {
               md={6}
               xs={12}
             >
-              <TextField
-                fullWidth
-                label="Total"
-                name="total"
-                type="number"
-                onChange={handleChange}
-                required
-                value={values.total}
-                variant="outlined"
+              <MultipleValueTextInput
+	              onItemAdded={(item, allItems) => handleNewEmail(item) }
+	              onItemDeleted={(item, allItems) => console.log(`Item removed: ${item}`)}
+	              label="Emails"
+	              name="item-input"
+	              placeholder="Enter whatever items you want; separate them with COMMA or ENTER."
               />
+              
             </Grid>
           </Grid>
         </CardContent>

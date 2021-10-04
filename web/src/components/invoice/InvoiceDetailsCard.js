@@ -68,12 +68,6 @@ const InvoiceDetailsCard = (props) => {
             <Grid item xs={6}>
               <h3>{invoice.total}</h3>
             </Grid>
-            <Grid item xs={6}>
-              <h3>Emails</h3>
-            </Grid>
-            <Grid item xs={6}>
-              <h3>{invoice.emails}</h3>
-            </Grid>
           </Grid>
         </Box>
       </CardContent>

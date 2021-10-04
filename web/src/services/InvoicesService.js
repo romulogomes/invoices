@@ -12,13 +12,15 @@ class InvoicesServices {
     return axios.post(API_URL + 'invoice/carregar', { id }, defaultConfig());
   }
 
-  save(data) {
+  save(data, emails) {
+    console.log(emails);
     const data_transform = {
       number: data["numberInvoice"],
       date: data["date"],
       company: data["company"],
       bill_to: data["billingFor"],
       total: data["total"],
+      emails
     }
     return axios.post(API_URL + 'invoice/salvar', data_transform, defaultConfig());
   }
