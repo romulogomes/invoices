@@ -6,4 +6,5 @@ Rails.application.routes.draw do
   post 'invoices/listar', to: 'invoices#listar'
   post 'invoice/carregar', to: 'invoices#carregar'
   post 'invoice/salvar', to: 'invoices#salvar'
+  post 'invoice/enviar', to: 'invoices#enviar'
 end

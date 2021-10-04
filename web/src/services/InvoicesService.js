@@ -13,7 +13,6 @@ class InvoicesServices {
   }
 
   save(data, emails) {
-    console.log(emails);
     const data_transform = {
       number: data["numberInvoice"],
       date: data["date"],
@@ -23,6 +22,11 @@ class InvoicesServices {
       emails
     }
     return axios.post(API_URL + 'invoice/salvar', data_transform, defaultConfig());
+  }
+
+  send(id, emails) {
+    const data_transform = { id, emails}
+    return axios.post(API_URL + 'invoice/enviar', data_transform, defaultConfig());
   }
 
 }

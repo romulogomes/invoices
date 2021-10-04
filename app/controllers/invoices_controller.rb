@@ -27,6 +27,15 @@ class InvoicesController < ApplicationController
     render json: { id: invoice.id }
   end
 
+  def enviar
+    if params[:emails] && params[:id]
+      enviar_emails(params[:id]) 
+      render json: { mensagem: 'email_enviado' }
+    else
+      render json: { mensagem: 'requisicao_invalida' }, status: :unprocessable_entity
+    end
+  end
+
   private
 
   # FIXME Romulo - Single responsibility
@@ -36,6 +45,7 @@ class InvoicesController < ApplicationController
     raise 'Sem acesso'
   end
 
+  # FIXME Romulo - Refactory 
   def enviar_emails(id)
     params[:emails].each do |email|
       InvoiceMailer.enviar_email(id: id, email: email).deliver_now

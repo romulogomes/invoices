@@ -55,4 +55,21 @@ RSpec.describe "/invoices", type: :request do
       expect(json['id']).to be_a_kind_of(Integer)
     end
   end
+
+  describe 'enviar invoice' do
+    context 'requisição válida' do
+      it do
+        expect {
+          post '/invoice/enviar', params: { id: invoice.id, emails: ['email@example.com', 'another@example.com'] }, headers: valid_headers
+        }.to change { ActionMailer::Base.deliveries.count }.by(2)
+      end
+    end
+
+    context 'requisição inváida' do
+      it do
+        post '/invoice/enviar', params: { emails: ['email@example.com', 'another@example.com'] }, headers: valid_headers
+        expect(json).to eq('mensagem' => 'requisicao_invalida')
+      end
+    end
+  end
 end
