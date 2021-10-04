@@ -1,7 +1,7 @@
 class InvoicesController < ApplicationController
 
   def listar
-    render json: ListarInvoices.new(owner_email: email_token).executar
+    render json: ListarInvoices.new(owner_email: email_owner_token).executar
   end
 
   def carregar
@@ -15,17 +15,15 @@ class InvoicesController < ApplicationController
       company: params[:company],
       bill_to: params[:bill_to],
       total: params[:total],
-      owner_email: email_token
+      owner_email: email_owner_token
     ).executar
-    
-    enviar_emails(invoice_id) if params[:emails]
-
+    EnviarInvoicePorEmail.new(invoice_id: invoice_id, emails: params[:emails]).executar if params[:emails]
     render json: { id: invoice_id }
   end
 
   def enviar
     if params[:emails] && params[:id]
-      enviar_emails(params[:id]) 
+      EnviarInvoicePorEmail.new(invoice_id: params[:id], emails: params[:emails]).executar
       render json: { mensagem: 'email_enviado' }
     else
       render json: { mensagem: 'requisicao_invalida' }, status: :unprocessable_entity
@@ -34,18 +32,10 @@ class InvoicesController < ApplicationController
 
   private
 
-  # FIXME Romulo - Single responsibility
-  def email_token 
-    Jwt.decode(request.headers['token']).first['email'] 
+  def email_owner_token 
+    Jwt.decode(request.headers['token']).first['email']
   rescue
     raise 'Sem acesso'
-  end
-
-  # FIXME Romulo - Refactory 
-  def enviar_emails(id)
-    params[:emails].each do |email|
-      InvoiceMailer.enviar_email(id: id, email: email).deliver_now
-    end
   end
 
 end
