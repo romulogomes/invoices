@@ -1,4 +1,3 @@
-# Husky Challenge
 ######  Sistema de geração de invoices.
 
 #### [Demo link](https://invoices-six.vercel.app/login)
