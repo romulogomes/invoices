@@ -8,6 +8,7 @@ Obs: Se a primeira requisição demorar um pouco, aguarde, é somente o Heroku l
 - Validação de Token
 - Criação de Invoices
 - Envio de Invoices por emails
+- Integração com serviço externo de geração de PDF via API
 - Visualização com opção de download da invoice (PDF)
 
 Foi priorizado o "caminho feliz" da aplicação, fazendo assim que o usuário consiga passar pelos requisitos e chegar ao outro lado.
